@@ -7,9 +7,9 @@ geo_merge <- read_excel("datos/geo_merge.xlsx")
 #omitir blancos
 geo_merge_l<-na.omit(geo_merge)
 
-loca<- geo_merge_l[143:1210,]
+loca<- geo_merge_l
 #Definici?n de colores por Marca Comercial
-colores<-loca$Marca
+colores<-loca$GRUPO
 
 pal<-colorFactor(palette = rainbow(length(unique(colores))),
       domain = unique(colores), 
@@ -19,11 +19,10 @@ pal<-colorFactor(palette = rainbow(length(unique(colores))),
       alpha = FALSE, 
       reverse = FALSE)
 
-
 #ploteo del mapa
 
 m<-leaflet(data = loca) %>%
       addTiles() %>%
-      addCircles(~longitud,~latitud, popup = ~Razon_social, color=pal(colores))
+      addCircles(~longitud,~latitud, popup = ~RZ, color=pal(colores))
 
 m
